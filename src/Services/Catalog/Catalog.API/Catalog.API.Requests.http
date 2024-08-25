@@ -1,0 +1,10 @@
+POST https://localhost:5050/products
+content-type: application/json
+
+{
+  "Name": "Sample Product",
+  "Category": ["Electronics", "Gadgets"],
+  "Description": "A sample product description.",
+  "ImageFile": "sample-imagefile",
+  "Price": 99.99
+}
