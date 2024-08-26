@@ -8,3 +8,7 @@ content-type: application/json
   "ImageFile": "sample-imagefile",
   "Price": 99.99
 }
+
+###
+
+GET https://localhost:5050/products
