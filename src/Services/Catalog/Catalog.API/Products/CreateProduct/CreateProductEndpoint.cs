@@ -2,6 +2,7 @@
 
 record CreateProductRequest(string Name, List<string> Category, string Description, string ImageFile, decimal Price);
 record CreateProductResponse(Guid Id);
+
 public class CreateProductEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -21,6 +22,5 @@ public class CreateProductEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Product")
         .WithDescription("Create product");
-
     }
 }
