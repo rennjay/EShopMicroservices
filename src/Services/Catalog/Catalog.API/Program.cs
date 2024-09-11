@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviours;
+using BuildingBlocks.Exceptions.Handlers;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -21,44 +22,13 @@ var builder = WebApplication.CreateBuilder(args);
     {
         options.Connection(builder.Configuration.GetConnectionString("Database")!);
     }).UseLightweightSessions();
+
+    builder.Services.AddExceptionHandler<CustomExeptionHandler>();
 }
 
 var app = builder.Build();
 {
-    app.UseExceptionHandler(exceptionHandler =>
-    {
-        exceptionHandler.Run(async context =>
-        {
-            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-            var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-
-            if (exceptionHandlerFeature is null)
-            {
-                logger.LogError("Exception handler feature is not available.");
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsJsonAsync(new ProblemDetails
-                {
-                    Status = StatusCodes.Status500InternalServerError,
-                    Title = "An unexpected error occurred.",
-                    Detail = "No additional details are available."
-                });
-                return;
-            }
-
-            var problem = new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = exceptionHandlerFeature.Error.Message,
-                Detail = exceptionHandlerFeature.Error.StackTrace
-            };
-
-            logger.LogError(exceptionHandlerFeature.Error, "An error occurred: {Message}", exceptionHandlerFeature.Error.Message);
-
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync(problem);
-        });
-    });
-
+    app.UseExceptionHandler(option => { });
     app.MapCarter();
     app.Run();
 }
