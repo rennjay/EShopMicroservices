@@ -1,10 +1,6 @@
 using BuildingBlocks.Behaviours;
 using BuildingBlocks.Exceptions.Handlers;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using static System.Net.Mime.MediaTypeNames;
+using Catalog.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -23,6 +19,9 @@ var builder = WebApplication.CreateBuilder(args);
     {
         options.Connection(builder.Configuration.GetConnectionString("Database")!);
     }).UseLightweightSessions();
+
+    if(builder.Environment.IsDevelopment())
+        builder.Services.InitializeMartenWith<CatalogInitialData>();
 
     builder.Services.AddExceptionHandler<CustomExeptionHandler>();
 }

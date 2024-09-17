@@ -16,17 +16,9 @@ internal class DeleteProductCommandHandler(IDocumentSession session) : ICommandH
 {
     public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
-        try
-        {
             session.Delete<Product>(command.Id);
             await session.SaveChangesAsync(cancellationToken);
 
-            return new DeleteProductResult(IsSuccess: true);
-        }
-        catch (Exception)
-        {
-            logger.LogError("DeleteProductCommandHandler.Handle failed and unable to delete product Id: {Id}", command.Id);
-            return new DeleteProductResult(IsSuccess: false);
-        }
+            return new DeleteProductResult(IsSuccess: true);  
     }
 }
