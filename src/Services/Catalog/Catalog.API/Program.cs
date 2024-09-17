@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
     {
         config.RegisterServicesFromAssembly(assembly);
         config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+        config.AddOpenBehavior(typeof(LoggingBehaviour<,>));
     });
 
     builder.Services.AddCarter();
