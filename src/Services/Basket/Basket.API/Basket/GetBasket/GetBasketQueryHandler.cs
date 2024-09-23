@@ -1,13 +1,11 @@
-﻿using Basket.API.Models;
-using BuildingBlocks.CQRS;
+﻿namespace Basket.API.Basket.GetBasket;
 
-namespace Basket.API.Basket.GetBasket;
-
-public record GetBasketQuery(string Username) : IQuery<GetBasketResult>;
+public record GetBasketQuery(string UserName) : IQuery<GetBasketResult>;
 
 public record GetBasketResult(ShoppingCart Cart);
 
-internal class GetBasketQueryHandler : IQueryHandler<GetBasketQuery, GetBasketResult>
+public class GetBasketQueryHandler 
+    : IQueryHandler<GetBasketQuery, GetBasketResult>
 {
     public Task<GetBasketResult> Handle(GetBasketQuery query, CancellationToken cancellationToken)
     {
