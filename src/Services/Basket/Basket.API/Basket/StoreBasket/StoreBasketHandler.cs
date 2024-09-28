@@ -14,10 +14,13 @@ public class StoreBasketValidator : AbstractValidator<StoreBasketCommand>
     }
 }
 
-internal class StoreBasketHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+internal class StoreBasketHandler(IBasketRepository basketRepository) 
+    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
 {
-    public Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
+    public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
     {
-        return Task.FromResult(new StoreBasketResult(command.Cart.UserName));
+        await basketRepository.StoreBasketAsync(command.Cart, cancellationToken);
+
+        return new StoreBasketResult(command.Cart.UserName);
     }
 }
