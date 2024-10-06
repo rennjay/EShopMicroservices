@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Discount.Grpc.Migrations
 {
     [DbContext(typeof(DiscountDbContext))]
-    [Migration("20241004070643_InitialCreate")]
+    [Migration("20241006032320_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace Discount.Grpc.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coupon");
+                    b.ToTable("Coupons");
 
                     b.HasData(
                         new

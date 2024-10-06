@@ -5,6 +5,7 @@ namespace Discount.Grpc.Data;
 
 public class DiscountDbContext(DbContextOptions<DiscountDbContext> options) : DbContext(options)
 {
+    public DbSet<Coupon> Coupons { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Coupon>().HasData(

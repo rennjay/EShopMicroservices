@@ -13,7 +13,7 @@ namespace Discount.Grpc.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Coupon",
+                name: "Coupons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -24,11 +24,11 @@ namespace Discount.Grpc.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coupon", x => x.Id);
+                    table.PrimaryKey("PK_Coupons", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
-                table: "Coupon",
+                table: "Coupons",
                 columns: new[] { "Id", "Amount", "Description", "ProductName" },
                 values: new object[,]
                 {
@@ -41,7 +41,7 @@ namespace Discount.Grpc.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Coupon");
+                name: "Coupons");
         }
     }
 }
